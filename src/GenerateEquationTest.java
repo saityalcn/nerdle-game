@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 class GenerateEquationTest {
 	Equation equation;
 	String generatedEquation;
+    private final char[] operators = {'+', '-', '*', '/'};
+    private final char[] numbers = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
 
 	@BeforeEach
 	void setUp(){
@@ -33,9 +35,6 @@ class GenerateEquationTest {
 	void testEquationContainsMoreThanOneEqCharacter() {
 		assertTrue(generatedEquation.split("=").length == 2);
 	}
-	// metod kullanma sarti: once metodu sabit bir equation ile test et 
-	// daha sonra bu metodun dogrulugu kanitlanmis olur
-	// bu metodu kullanarak denklemi test et
 	
 	@Test
 	@DisplayName("Validation Method - Valid Equation")
@@ -45,8 +44,8 @@ class GenerateEquationTest {
 	
 	@Test
 	@DisplayName("Validation Method - Invalid Equation")
-	void testEquationValidationMethoInvalid() {
-		assertFalse(equation.isEquationValid("4+5-3"));
+	void testEquationValidationMethodInvalid() {
+		assertFalse(equation.isEquationValid("+4+5--3*"));
 	}
 	
 	@RepeatedTest(10000)
@@ -58,14 +57,13 @@ class GenerateEquationTest {
 	@RepeatedTest(10000)
 	@DisplayName("Equation Contains At Least One Operator")
 	void testEquationContainsAtLeastOneOperator() {
-		// degistir bunu
-		assertTrue(equation.isEquationValid(generatedEquation));
+		assertTrue(equation.isStringContains(operators,generatedEquation));
 	}
 	
 	@RepeatedTest(10000)
 	@DisplayName("Equation Validation Test")
 	void testIsEquationValid() {
-		assertTrue(equation.isEquationValid(generatedEquation));
+		assertTrue(equation.isStringContains(numbers,generatedEquation));
 	}
 
 }

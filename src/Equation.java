@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 @SuppressWarnings("unused")
 public class Equation {
-    String equation = "";
-    private static int upperBoundOfLength = 9;
-    private static int lowerBoundOfLength = 7;
-    int length;    
-    char[] operators = {'+', '-', '*', '/'};
-    char[] numbers = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
+    private String equation = "";
+    private static final int upperBoundOfLength = 9;
+    private static final int lowerBoundOfLength = 7;
+    private int length;    
+    private static final char[] operators = {'+', '-', '*', '/'};
+    private static final char[] numbers = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
 
     
     public String generateEquation(){
@@ -250,7 +250,7 @@ public class Equation {
     	return "1";
     }
 
-    private boolean isStringContains(char[] chars, String str){
+    public boolean isStringContains(char[] chars, String str){
         boolean isFound = false;
         int i = 0;
         int j = 0;
