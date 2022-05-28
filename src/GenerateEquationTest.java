@@ -51,7 +51,7 @@ class GenerateEquationTest {
 	@RepeatedTest(10000)
 	@DisplayName("Equation Contains At Least One Number")
 	void testEquationContainsAtLeastOneOperand() {
-		assertTrue(equation.isEquationValid(generatedEquation));
+		assertTrue(equation.isStringContains(numbers,generatedEquation));
 	}
 	
 	@RepeatedTest(10000)
@@ -63,7 +63,7 @@ class GenerateEquationTest {
 	@RepeatedTest(10000)
 	@DisplayName("Equation Validation Test")
 	void testIsEquationValid() {
-		assertTrue(equation.isStringContains(numbers,generatedEquation));
+		assertTrue(equation.isEquationValid(generatedEquation));
 	}
 
 }
