@@ -465,7 +465,6 @@ public class userInterface extends JPanel implements KeyListener,MouseListener,M
                         inputOperator=sqInputOperator.get(i).getValue();
                         injectValue(inputOperator,2);
                         sqInputOperator.get(i).setPicked(true);
-                        //System.out.println(s.getValue()+sqInputOperator.get(i).isPicked());
                         isFound=true;
                     }
                     i++;
@@ -594,7 +593,6 @@ public class userInterface extends JPanel implements KeyListener,MouseListener,M
                         warning1();
                         }
                         isFound=true;
-                        //System.out.println(s.getValue()+sqValues.get(i).isPicked());
                     }
                     i++;
                 }
@@ -603,11 +601,7 @@ public class userInterface extends JPanel implements KeyListener,MouseListener,M
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        //System.out.println("X: "+e.getX()+"\nY: "+e.getY());
-            
-            
-    }
+    public void mousePressed(MouseEvent e) {}
 
     @Override
     public void mouseReleased(MouseEvent arg0) {

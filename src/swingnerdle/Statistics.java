@@ -59,12 +59,8 @@ public class Statistics implements Serializable {
     		this.averageNumberOfRows = 0.0;
                 this.averageTime="0.0";
     	}
-        print();
     }
     
-    public void print(){
-        System.out.println("numberOfCompletedGames: " + numberOfCompletedGames + " numberOfUncompletedGames: "  +numberOfUncompletedGames + " numberOfSuccess: " + numberOfSuccess + " numberOfUnsuccess: " + numberOfUnsuccess + " averageNumberOfRows: " + averageNumberOfRows + " averageTime: " + averageTime);
-    }
     
     public void finalizeGame(boolean isEndedWithSuccess, int rowCount, boolean isCompleted, String time) {
     	FileReadWrite<Statistics> fileReadWrite  = new FileReadWrite<>();
@@ -82,7 +78,6 @@ public class Statistics implements Serializable {
     		increaseUncompletedGameCount();
     	
     	fileReadWrite.writeData(this.fileName, this);
-        print();
     }
     
     public String[] getString(){

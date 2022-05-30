@@ -214,10 +214,7 @@ public class MainScreen extends JPanel implements KeyListener,ActionListener,Mou
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        //System.out.println("X: "+e.getX()+"\nY: "+e.getY());
-            
-    }
+    public void mousePressed(MouseEvent e) {}
 
     @Override
     public void mouseReleased(MouseEvent arg0) {
