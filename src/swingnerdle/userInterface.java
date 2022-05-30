@@ -4,8 +4,6 @@ package swingnerdle;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -15,7 +13,7 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class userInterface extends JPanel implements KeyListener,MouseListener,MouseMotionListener{
+public class userInterface extends JPanel implements MouseListener,MouseMotionListener{
     
     private int startX;
     private int startY;
@@ -120,6 +118,7 @@ public class userInterface extends JPanel implements KeyListener,MouseListener,M
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
         inject();
+        System.out.println(tempEquation);
     }
     
     public void inject(){
@@ -152,7 +151,6 @@ public class userInterface extends JPanel implements KeyListener,MouseListener,M
         if(saveAllGame){
             saveGame=new Save(tempEquation,sqValues,level,String.valueOf(time));
             saveGame.writeSave();
-            System.out.println(saveGame.toString());
         }
         MainScreen main=new MainScreen(screen);
         main.setFocusable(true);
@@ -271,12 +269,16 @@ public class userInterface extends JPanel implements KeyListener,MouseListener,M
                 g.setColor(new Color(255,102,0));
             }
         g.drawString("Sonra Bitir", 240, 700);
+        
+        g.setFont(new Font("Arial",Font.BOLD,14));
+        g.setColor(new Color(0,0,0));
+        
+        g.drawString("9- 20011019- Muhammed Eren Şekkeli - 20011024 -  Sait Yalçın" , 80, 750);
    
     }
     public void playAgain(){
         userInterface usi=new userInterface(screen,false);
         usi.requestFocus();
-        usi.addKeyListener(this);
         usi.setFocusable(true);
         usi.setFocusTraversalKeysEnabled(false);
         screen.add(usi);
@@ -332,7 +334,7 @@ public class userInterface extends JPanel implements KeyListener,MouseListener,M
        Object[] opt=new Object[2];
         opt[0]="Ana Menüye Git";
         opt[1]="Yeni Oyun";
-        int check=JOptionPane.showOptionDialog(this, "Tahmin Hakkınız Bitti. Oyunu Kazanamadınız. Süre: "+time+" sn", "Oyun Bitti", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,null,opt,opt[0]); 
+        int check=JOptionPane.showOptionDialog(this, "Tahmin Hakkınız Bitti. Oyunu Kazanamadınız. Süre: "+time+" sn"+"\nDenklem: "+tempEquation, "Oyun Bitti", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,null,opt,opt[0]); 
         
         if(check==0){
             saveStatistics=true;
@@ -420,17 +422,7 @@ public class userInterface extends JPanel implements KeyListener,MouseListener,M
     public void repaint() {
         super.repaint();
     }
-    @Override
-    public void keyTyped(KeyEvent arg0) {
-    }
-
-    @Override
-    public void keyPressed(KeyEvent arg0) {
-    }
-
-    @Override
-    public void keyReleased(KeyEvent arg0) {
-    }
+ 
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -461,7 +453,6 @@ public class userInterface extends JPanel implements KeyListener,MouseListener,M
                         inputOperator=sqInputOperator.get(i).getValue();
                         injectValue(inputOperator,2);
                         sqInputOperator.get(i).setPicked(true);
-                        //System.out.println(s.getValue()+sqInputOperator.get(i).isPicked());
                         isFound=true;
                     }
                     i++;
@@ -590,7 +581,6 @@ public class userInterface extends JPanel implements KeyListener,MouseListener,M
                         warning1();
                         }
                         isFound=true;
-                        //System.out.println(s.getValue()+sqValues.get(i).isPicked());
                     }
                     i++;
                 }
@@ -599,11 +589,7 @@ public class userInterface extends JPanel implements KeyListener,MouseListener,M
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        //System.out.println("X: "+e.getX()+"\nY: "+e.getY());
-            
-            
-    }
+    public void mousePressed(MouseEvent e) {}
 
     @Override
     public void mouseReleased(MouseEvent arg0) {

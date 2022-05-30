@@ -6,8 +6,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -15,7 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class MainScreen extends JPanel implements KeyListener,ActionListener,MouseListener,MouseMotionListener{
+public class MainScreen extends JPanel implements ActionListener,MouseListener,MouseMotionListener{
 
     private Timer timer;
     private Color color;
@@ -79,7 +77,6 @@ public class MainScreen extends JPanel implements KeyListener,ActionListener,Mou
             }
         screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         usi.requestFocus();
-        usi.addKeyListener(this);
         usi.setFocusable(true);
         usi.setFocusTraversalKeysEnabled(false);
         screen.add(usi);
@@ -91,7 +88,6 @@ public class MainScreen extends JPanel implements KeyListener,ActionListener,Mou
         }        
     }
     
-
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -154,26 +150,17 @@ public class MainScreen extends JPanel implements KeyListener,ActionListener,Mou
         //Test Yazdırma
         if(applyTest){
             g.setFont(new Font("Arial",Font.BOLD,20));
-        g.drawString("Equation Result: "+equationMes, 20, 40);
+            g.drawString("Denklem: "+equationMes, 20, 40);
         }
+        
+                
+            g.setFont(new Font("Arial",Font.BOLD,14));
+            g.drawString("9- 20011019- Muhammed Eren Şekkeli - 20011024 -  Sait Yalçın" , 50, 600);
     }
 
     @Override
     public void repaint() {
         super.repaint();
-    }
-    
-   
-    @Override
-    public void keyTyped(KeyEvent arg0) {
-    }
-
-    @Override
-    public void keyPressed(KeyEvent arg0) {
-    }
-
-    @Override
-    public void keyReleased(KeyEvent arg0) {
     }
 
     @Override
@@ -210,10 +197,7 @@ public class MainScreen extends JPanel implements KeyListener,ActionListener,Mou
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        //System.out.println("X: "+e.getX()+"\nY: "+e.getY());
-            
-    }
+    public void mousePressed(MouseEvent e) {}
 
     @Override
     public void mouseReleased(MouseEvent arg0) {

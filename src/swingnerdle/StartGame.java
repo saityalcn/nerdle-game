@@ -21,19 +21,11 @@ private static final StartGame screen=new StartGame("Nerdle Game");
         menu.setFocusable(true);
         menu.setFocusTraversalKeysEnabled(false);
         screen.setResizable(false);
-        screen.setSize(600, 800);
+        screen.setSize(600, 900);
         screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         screen.setLocationRelativeTo(null);
         screen.add(menu);
         screen.setVisible(true);
     }
-
-    public static StartGame getScreen() {
-        return screen;
-    }
-    
-
-    
-    
     
 }

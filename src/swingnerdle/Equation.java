@@ -79,8 +79,6 @@ public class Equation {
        }
 
        length = equation.length();
-       System.out.println("Length: " + length);
-       System.out.println(equation);
 
         return equation;
     }
@@ -89,7 +87,6 @@ public class Equation {
         try{
             return Integer.valueOf(s);
         } catch (NumberFormatException e){
-            System.out.println("Exception: " + s);
             return 0;
         }
     }
