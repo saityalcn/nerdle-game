@@ -271,6 +271,10 @@ public class userInterface extends JPanel implements KeyListener,MouseListener,M
                 g.setColor(new Color(255,102,0));
             }
         g.drawString("Sonra Bitir", 240, 700);
+        
+        g.setFont(new Font("Arial",Font.BOLD,14));
+        g.setColor(new Color(0,0,0));
+        g.drawString("9- 20011019- Muhammed Eren Şekkeli - 20011024 -  Sait Yalçın" , 50, 800);
    
     }
     public void playAgain(){

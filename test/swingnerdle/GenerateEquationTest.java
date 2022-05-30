@@ -4,22 +4,22 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
-//import org.junit.jupiter.api.Test;
-import org.junit.Test;
 
 public class GenerateEquationTest {
-	private Equation equation= new Equation();;
-	private String generatedEquation= equation.generateEquation();
+    private Equation equation;
+    private String generatedEquation;
     private final char[] operators = {'+', '-', '*', '/'};
     private final char[] numbers = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
 
 	@BeforeEach
-	void setUp(){
+	public void setUp(){
+		equation= new Equation();
+		generatedEquation= equation.generateEquation();
 	}
-
+       
 	@RepeatedTest(10000)
 	@DisplayName("Length Between Bounds Test")
-	void testLength(){
+	public void testLength(){
 		int min = 7,max=9;
 		int len = generatedEquation.length();
 		assertTrue((min <= len && max >=len));
@@ -27,46 +27,47 @@ public class GenerateEquationTest {
 	
 	@RepeatedTest(10000)
 	@DisplayName("Equation Contains '=' Character Test")
-	void testEquationContainsEqCharacter() {
+	public void testEquationContainsEqCharacter() {
 		assertTrue(generatedEquation.contains("="));
 	}
 	
 	@RepeatedTest(10000)
 	@DisplayName("Equation Contains  Only One '=' Character Test")
-	void testEquationContainsMoreThanOneEqCharacter() {
+	public void testEquationContainsMoreThanOneEqCharacter() {
 		assertTrue(generatedEquation.split("=").length == 2);
 	}
 	
-	@Test
+	@RepeatedTest(1)
 	@DisplayName("Validation Method - Valid Equation")
 	public void testEquationValidationMethod() {
 		assertTrue(equation.isEquationValid("4+5*3=19"));
 	}
 	
-	@Test
+	@RepeatedTest(1)
 	@DisplayName("Validation Method - Invalid Equation")
 	public void testEquationValidationMethodInvalid() {
 		assertFalse(equation.isEquationValid("4+5/15="));
+		equation.isEquationValid("4+5/0=");
+		equation.isEquationValid("4+5/15=+");
+		equation.isEquationValid("-84+5/15=+");
 	}
 	
 	@RepeatedTest(10000)
 	@DisplayName("Equation Contains At Least One Number")
-	void testEquationContainsAtLeastOneOperand() {
+	public void testEquationContainsAtLeastOneOperand() {
 		assertTrue(equation.isStringContains(numbers,generatedEquation));
 	}
 	
 	@RepeatedTest(10000)
 	@DisplayName("Equation Contains At Least One Operator")
-	void testEquationContainsAtLeastOneOperator() {
+	public void testEquationContainsAtLeastOneOperator() {
 		assertTrue(equation.isStringContains(operators,generatedEquation));
 	}
 	
 	@RepeatedTest(10000)
 	@DisplayName("Equation Validation Test")
-	void testIsEquationValid() {
+	public void testIsEquationValid() {
 		assertTrue(equation.isEquationValid(generatedEquation));
 	}
         
-        
-
 }

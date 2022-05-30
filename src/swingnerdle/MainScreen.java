@@ -154,8 +154,12 @@ public class MainScreen extends JPanel implements KeyListener,ActionListener,Mou
         //Test Yazdırma
         if(applyTest){
             g.setFont(new Font("Arial",Font.BOLD,20));
-        g.drawString("Equation Result: "+equationMes, 20, 40);
+            g.drawString("Denklem: "+equationMes, 20, 40);
         }
+        
+                
+            g.setFont(new Font("Arial",Font.BOLD,14));
+            g.drawString("9- 20011019- Muhammed Eren Şekkeli - 20011024 -  Sait Yalçın" , 50, 600);
     }
 
     @Override
