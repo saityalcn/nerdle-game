@@ -13,7 +13,7 @@ public class Equation {
     private static final char[] operators = {'+', '-', '*', '/'};
     private static final char[] numbers = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
 
-    
+    // 7-9 araliginda denklem üretmeyi saglar.
     public String generateEquation(){
         char op, num1, num2;
         int i = 0;
@@ -32,9 +32,10 @@ public class Equation {
             while(equation.length() + result.length() + 1 < lowerBoundOfLength || isOperator(equation.charAt(i))){    // agirlikli olarak 7 uzunlugunda olmasina sebep olabiliyor.
                 char c;
                 rand = new Random().nextInt(2);
-
+		// eger bir onceki iterayonda operator uretildiyse tekrar operator uretilmesini engellemek icin flag degiskeni kullanilir.
                 if((rand == 0 || !flag) && !divideOperationGenerated){
                 	if(equation.charAt(equation.length()-1) == '/') {
+				// Bolme operatoru geldiginde daha duzgun sayilar cikmasi icin onceki sayilarin hesap sonucunu tam bolen bir sayi secilmesi saglanir.
                 		if(result.isEmpty()) {
                 			String temp = equation.substring(0, equation.length()-1);
                       		divider = getRandomDivider(toInt(temp));
@@ -68,12 +69,12 @@ public class Equation {
                     divideOperationGenerated = false;
                     i++;
                 }
-                
+                // her bir iterasyonda deger hesaplamasi dinamik bir sekilde yapilir. Eger bir onceki iterasyonda sayi degil operator uretildiyse bu hesabin yapilmasi engellenir.
                 if(isNumberGenerated)
                     result = calculateEquation(equation);
                 
             }
-            
+           // iterasyon sonucunda elimizde olan denklemin sonuna = simgesi ve denklemin cozulmesi sonucu olusan deger eklenir.
             equation += '=';
             equation = equation.concat(result);
        }
@@ -82,7 +83,8 @@ public class Equation {
 
         return equation;
     }
-
+	
+	//parametre olarak gelen stringin icindeki sayisal degeri geriye dondurur.
     public int toInt(String s){
         try{
             return Integer.valueOf(s);
@@ -90,7 +92,7 @@ public class Equation {
             return 0;
         }
     }
-
+	// parametre olarak gelen iki deger ve bir operatore gore hesaplama islemi yaparak sonucu geriye dondurur.
     public int calculateValue(int a, int b, char op){
         switch(op){
             case '+' :
@@ -109,14 +111,16 @@ public class Equation {
                 return 0;
         }
     }
-
+	
+	// gelen denklemin sayi ve operatorlerini ayirir ve deger hesaplama metodunu cagirarak denklemin sonuc hesaplanmis halini geriye dondurur
     public String calculateEquation(String eq){
         String num1="",num2="";
         ArrayList<Character> operatorList = new ArrayList<>();
         ArrayList<String> numbers = new ArrayList<>();
         char op = ' ';
         int i = 0;
-
+	
+	    // sayi ve operatorleri ayirma islemi
         while(i < eq.length() && eq.charAt(i) != '='){
             num1 = num2;
             num2 = "";
@@ -147,7 +151,8 @@ public class Equation {
         calculateValueOfEquation(operatorList, numbers);
         return numbers.get(0);
     }
-
+	
+	// gelen bir karakterin operator olup olmadigini geriye dondurur.
     private boolean isOperator(char c){
         int i = 0;
         while(i<operators.length && c != operators[i]){
@@ -155,11 +160,12 @@ public class Equation {
         }
 
         if(i==operators.length)
-            return false;
+            return false;	// operator degil
 
-        return true;
+        return true;		// operator
     }
-
+	
+	// gelen operatorler ve sayilara gore denklemi islem onceligini gozeterek hesaplar.
     private void calculateValueOfEquation(ArrayList<Character> operators, ArrayList<String> numbers){
         ArrayList<Character> highPrecedence = new ArrayList<>();
         ArrayList<Character> lowPrecedence = new ArrayList<>();
@@ -194,7 +200,8 @@ public class Equation {
             }
         }
     }
-
+	
+	// parametre olarak gelen bir arraylist'te yine parametre olarak gelen bir karakterin olup olmadigini donderir.
     private boolean isContains(ArrayList<Character> list, char c){
         int i = 0;
         
@@ -202,56 +209,62 @@ public class Equation {
             i++;
 
         if(i<list.size() && list.get(i) == c)
-            return true;
-
-        return false;
+            return true;		// karakter varsa
+	
+        return false;		// karakter yoksa
     }
 
+	// denklemin gecerli bir denklem olup olmadigini kontrol eder
     public boolean isEquationValid(String equation){
         String[] arr = new String[2];
         char[] charArr = new char[1];
         String result;
         charArr[0] = '=';
         try{
+		
             if(!isStringContains(operators, equation))
-                return false;
+                return false;	// denklem operator icermiyorsa
 
             else if(!isStringContains(numbers, equation))
-                return false;
+                return false;	// denklem sayi icermiyorsa
             
             else if(!isStringContains(charArr, equation))
-                return false;
+                return false;	// denklem = icermiyorsa
 
             arr = equation.split("=");
             result = calculateEquation(arr[0]);
             if(result == null)
-                return false;
+                return false;	// denklemin sonucu hesaplanamiyorsa
 
             if(arr[1].equals(result))
-                return true;
+                return true;	// denklemin sonucu hesaplaniyor ve girilen sonucla dogruysa
 
-            return false;
+            return false;	// eger denklemin sonucu hesaplaniyor ve girilen sonucla eslesmiyorsa veya diger sartlar saglanmiyorsa
         } catch(IndexOutOfBoundsException e){
-            return false;
+            return false;	// eger denklemdeki operatorler hesaplanabilenden fazla oluyorsa IndexOutOfBoundException' a sebep olur	
         }
     }
     
+	// parametre olarak verilen sayinin tam bolenlerinden random birini secerek dondurur
     public String getRandomDivider(int num) {
     	String s;
     	ArrayList<Integer> dividers = new ArrayList<>();
+	    
+	    // tam bolenlerin bulunmmasi
     	for(int i=1; i<=num; i++) {
     		if(num % i == 0)
     			dividers.add(i);
     	}
     	
     	if(dividers.size() > 1) {
-    		s = Integer.toString(dividers.get(new Random().nextInt(dividers.size()-1)+1));
+    		s = Integer.toString(dividers.get(new Random().nextInt(dividers.size()-1)+1));	// random bir bolenin secilmesi
     		return s;
     	}
     	
-    	return "1";
+    	return "1";	// eger bolen sadece 1 taneyse geriye 1 doner.
     }
 
+	// verilen bir stringde karakter dizisindeki elemanlardan herhangi birinin olup olmadigini geriye dondurur.
     public boolean isStringContains(char[] chars, String str){
         boolean isFound = false;
         int i = 0;
