@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 
 @SuppressWarnings("unchecked")
 public class FileReadWrite<T> {
+    // verilen objenin verilen dosya ismindeki dosyaya yazilmasini saglar
     public boolean writeData(String fileName, T object) {
         File file = new File(fileName);
         try{
@@ -17,11 +18,12 @@ public class FileReadWrite<T> {
             objOut.close();
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
+            return false;   // exception geldiyse
         }
-        return true;
+        return true;    // yazilabildiyse
     }
-
+    
+       // verilen dosya ismindeki dosyadan obje okuyup geriye dondurmeyi saglar
     public T readData(String fileName){
         File file = new File(fileName);
         T t;
@@ -39,18 +41,20 @@ public class FileReadWrite<T> {
         }
         return t;
     }
-
+    
+    // verilen isimdeki dosyanin olup olmadigini geriye dondurur.
     public boolean isFileExists(String fileName){
         File file = new File(fileName);
         return file.exists();
     }
     
+    // verilen isimdeki dosyanin silinmesini saglar
     public boolean deleteFile(String fileName) {
     	File file = new File(fileName);
     	if(isFileExists(fileName))
-    		return file.delete();
+    		return file.delete();  
     	
-    	return true;
+    	return true;    // dosya yoksa da true doner.
     }
     
 }
