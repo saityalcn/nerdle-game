@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Save implements Serializable{
-    private static final long serialVersionUID = 5860787475073472801L;
+    private static final long serialVersionUID = 5860787475073472801L;  
     public String equation;
     public ArrayList<Squares> prevGuesses;
     public int level;
@@ -22,8 +22,9 @@ public class Save implements Serializable{
     
     
     
-    private String fileName = "save.bin";
-
+    private String fileName = "save.bin";       // kayitlarin tutulacagi dosya
+    
+    // cekilmek istenildiginde kayitin cekilmesini saglar.
     public void getSave(){
         FileReadWrite<Save> frw = new FileReadWrite<>();
         Save s = frw.readData(fileName);
@@ -33,16 +34,19 @@ public class Save implements Serializable{
         this.time = s.time;
     }
     
+    // kayit dosyasinin silinmesi 
     public void delete(){
         FileReadWrite<Save> frw = new FileReadWrite<>();
         frw.deleteFile(this.fileName);
     }
-
+    
+    // kayidin ilgili dosyaya yazilmasi
     public void writeSave(){
         FileReadWrite<Save> frw = new FileReadWrite<>();
         frw.writeData(this.fileName, this);
     }
-
+    
+    // Daha onceden kayit olup olmadigini kontrol eder
     public boolean isSaveExists(){
         FileReadWrite<Save> frw = new FileReadWrite<>();
        return frw.isFileExists(this.fileName);
