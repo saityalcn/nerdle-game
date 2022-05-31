@@ -14,31 +14,38 @@ public class Statistics implements Serializable {
 
     public Statistics(){}
     
+	// tamamlanan bir oyunun ardindan tamamlanan oyun sayisini arttirir
     private void increaseCompletedGameCount() {
     	this.numberOfCompletedGames++;
     }
     
+	// tamamlanmayan bir oyunun ardindan tamamlanmamis oyun sayisini arttirir
     private void increaseUncompletedGameCount() {
     	this.numberOfUncompletedGames++;
     }
     
+	// basarili biten bir oyunun ardindan basarili oyun sayisini arttirir
     private void increaseNumberOfSuccess() {
     	this.numberOfSuccess++;
     }
     
+	// basarisiz biten bir oyunun ardindan basarisiz oyun sayisini arttirir
     private void increaseNumberOfUnsuccess() {
     	this.numberOfUnsuccess++;
     }
     
+	// ortalama surenin guncellenmesini saglar
     private void changeAverageTime(String time) {
     	this.averageTime=String.valueOf((Double.valueOf(averageTime)*(numberOfSuccess-1)+Double.valueOf(time))/(numberOfSuccess));
     }
     
+	// basarili biten bir oyunun ardindan ortalama satir sayisini gunceller
     private void changeAverageNumberOfRows(int rowCount) {
     	double totalRowCount = this.averageNumberOfRows * (numberOfCompletedGames-1);  
     	this.averageNumberOfRows = (double) (totalRowCount + rowCount) / numberOfCompletedGames;
     }
     
+	// eskiden kayitli istatistikler varsa onlari dosyadan ceker, yoksa istatistikleri 0 olarak ilklendirir
     public void initializeStatistics(){
     	FileReadWrite<Statistics> frw = new FileReadWrite<>();
     	if(frw.isFileExists(fileName)) {
@@ -62,24 +69,26 @@ public class Statistics implements Serializable {
     }
     
     
+	// biten bir oyunun ardindan istatistikleri guncellemeyi saglar
     public void finalizeGame(boolean isEndedWithSuccess, int rowCount, boolean isCompleted, String time) {
     	FileReadWrite<Statistics> fileReadWrite  = new FileReadWrite<>();
     	if(isCompleted) {
-			increaseCompletedGameCount();
+			increaseCompletedGameCount();	// oyun tamamlandiysa
     		if(isEndedWithSuccess) {
-    			increaseNumberOfSuccess();
-    			changeAverageNumberOfRows(rowCount);
-    			changeAverageTime(time);
+    			increaseNumberOfSuccess();	// oyun basarili tamamlandiysa
+    			changeAverageNumberOfRows(rowCount);	// oyun basarili tamamlandiysa
+    			changeAverageTime(time);	// oyun basarili tamamlandiysa
     		}
     		else
-    			increaseNumberOfUnsuccess();	
+    			increaseNumberOfUnsuccess();	// oyun basarisiz tamamlandiysa
     	}
     	else 
-    		increaseUncompletedGameCount();
+    		increaseUncompletedGameCount();		// oyun tamamlanmadiysa
     	
     	fileReadWrite.writeData(this.fileName, this);
     }
     
+	// istatistikleri yazdirirken gerekli metni hazirlar ve dondurur
     public String[] getString(){
         String[] str =new String[5];
         str[0]= "Yarıda Bırakılan Oyun Sayısı: " + numberOfUncompletedGames + "\n";
